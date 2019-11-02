@@ -60,7 +60,7 @@ IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   IF /I "%IGNORE_MANIFEST%" EQU "1" (
     SET IGNORE_MANIFEST_PARAM=-x
   )
-  ::Restore nuget packages
+  echo Restore nuget packages "%DEPLOYMENT_SOURCE%"
   ::call :ExecuteCmd dotnet restore "%DEPLOYMENT_SOURCE%\"
   call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 !IGNORE_MANIFEST_PARAM! -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
   IF !ERRORLEVEL! NEQ 0 goto error
